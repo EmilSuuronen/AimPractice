@@ -20,7 +20,7 @@ h1 {
     width: 50%;
     height: 50%;
     background-color: #333;
-    border: 2px solid #000;
+    border: 2px solid white;
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -33,10 +33,9 @@ h1 {
 
 .game-container-elements {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
+    justify-content: space-evenly;
     background-color: #333;
-    border: 2px solid #000;
+    border: 2px solid white;
     text-align: center;
     margin: 8px;
     width: 50%;
@@ -74,4 +73,18 @@ h1 {
 #startButton {
     margin: auto;
     padding: 24px;
+    background-color: #234efc;
+    border-radius: 4px;
+    border: 1px solid white;
+    color: white;
+}
+
+#aimAreaSlider {
+    width: 100%;
+    margin-top: 10px;
+}
+
+#aimAreaValue {
+    display: inline-block;
+    margin-left: 10px;
 }
