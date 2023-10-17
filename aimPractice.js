@@ -9,7 +9,7 @@ let score = 0;
 let missedTargets = 0;
 let clickedTargets = 0;
 let missClickedTargets = 0;
-let createDotInterval = 800;
+let createDotInterval = 500;
 let createTargetWithTimer;
 
 function createDot() {
@@ -23,21 +23,18 @@ function createDot() {
         const randomX = Math.random() * maxX;
         const randomY = Math.random() * maxY;
 
-        const minCreateDotInterval = 100;
-        createDotInterval = Math.max(minCreateDotInterval, 1000 - 100 * score);
-        
         dot.style.left = `${randomX}px`;
         dot.style.top = `${randomY}px`;
 
         const animationDuration = Math.max(3.0 - 0.002 * score, 0.2);
-        
+
         const dotTimeout = setTimeout(() => {
             gameContainer.removeChild(dot);
             dotMissed();
         }, animationDuration * 1000);
 
         dot.style.animationDuration = `${animationDuration}s`;
-        
+
         dot.addEventListener('click', () => {
             score += 10;
             clickedTargets++;
@@ -48,29 +45,29 @@ function createDot() {
             accuracyElement.textContent = accuracyElement.textContent = calculateAccuracy().toFixed(1) + '%';
             console.log("clickedtargets" + clickedTargets)
         });
-
-        document.addEventListener('click', () => {
-            if (event.target === gameContainer) {
-                missClickedTargets++
-                accuracyElement.textContent = calculateAccuracy().toFixed(1) + '%';
-                event.stopPropagation()
-                console.log("MissClickedTargets" + missClickedTargets)
-            }
-        });
         
         gameContainer.appendChild(dot);
-        
+
     } else {
         startButton.style.display = 'block';
         resetGame()
     }
 }
 
+gameContainer.addEventListener('click', (event) => {
+    if (event.target === gameContainer) {
+        missClickedTargets++
+        accuracyElement.textContent = calculateAccuracy().toFixed(1) + '%';
+        event.stopPropagation()
+        console.log("MissClickedTargets" + missClickedTargets)
+    }
+});
+
 function calculateAccuracy() {
     const totalTargets = clickedTargets + missClickedTargets;
 
     if (totalTargets === 0) {
-        return 100.0; 
+        return 100.0;
     }
 
     return (clickedTargets / totalTargets) * 100;
@@ -88,14 +85,12 @@ function resetGame() {
     dots.forEach((dot) => {
         gameContainer.removeChild(dot);
     });
-    
+
     score = 0;
     missedTargets = 0;
     missClickedTargets = 0;
     clickedTargets = 0;
-    createDotInterval = 1000;
-    accuracyElement.textContent =
-        ((clickedTargets/(clickedTargets + missClickedTargets)) * 100).toFixed(1) + '%';
+    createDotInterval = 500;
 }
 
 startButton.addEventListener('click', () => {
@@ -103,4 +98,8 @@ startButton.addEventListener('click', () => {
     gameContainer.classList.remove('hidden');
 
     createTargetWithTimer = setInterval(createDot, createDotInterval);
+
+    scoreElement.textContent = score;
+    missedElement.textContent = missedTargets + "/3";
+    accuracyElement.textContent = calculateAccuracy().toFixed(1) + '%';
 });
