@@ -6,9 +6,12 @@ body {
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background-color: #f0f0f0;
     font-family: Arial, sans-serif;
     background-color: #1f1f1f;
+}
+
+h1 {
+    color: #f0f0f0;
 }
 
 .game-container {
@@ -18,6 +21,22 @@ body {
     background-color: #333;
     border: 2px solid #000;
     overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+
+.flex-row {
+    display: flex;
+}
+
+.game-container-elements {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #333;
+    border: 2px solid #000;
+    text-align: center;
+    margin-left: 8px;
 }
 
 .dot {
@@ -27,8 +46,28 @@ body {
     background-color: #ff4f00;
     border-radius: 50%;
     cursor: pointer;
+    animation: countdown 3s linear forwards;
+}
+
+@keyframes countdown {
+    0% {
+        border: 2px solid #ffffff;
+    }
+    100% {
+        border: 2px solid transparent;
+    }
 }
 
 .hidden {
     display: none;
+}
+
+.stats {
+    color: #f0f0f0;
+    padding: 12px;
+}
+
+#startButton {
+    margin: auto;
+    padding: 24px;
 }
